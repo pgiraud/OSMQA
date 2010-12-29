@@ -1,0 +1,56 @@
+Bugs fix
+========
+
+General Interface
+-----------------
+Display "not in range" message if zoom is not appropriate.
+
+Add a location search input to help users recenter the map.
+
+Legend
+------
+
+Legend disposition (css) to be modified.
+
+Enhancements
+============
+
+Application
+-----------
+
+Have a better project installation and deployment processe (using buildout).
+
+Authentication
+--------------
+
+Connect to OSM OAuth service to retrieve the user name.
+
+Database
+--------
+
+Preserve the modification historic
+
+Interface
+---------
+- Add a "show validated tiles for this tag on the map" when hovering a tag in the validated tags list.
+
+- Don't display the "add tag" section at first. Display a "add tag" link instead. Users click on this link and the add tag section appears or a you must be authenticated to use this functionnality.
+
+ - Add a way to return to "any tag" displayed in the map.
+
+Selection
+---------
+Allow multiple selection (using ctrl key).  
+
+JS code
+-------
+Prevent memory leaks :
+ - add a destroy method in Div class
+
+Rename Static and Div classes.
+
+Create a specific strategy to request the server. For example, we could simply ask for the new tiles, and only the new tiles, always keep already loaded tiles instead of loading tiles for the current extent. 
+
+Errors
+------
+Have a better errors management
