@@ -10,6 +10,7 @@ import oauth2 as oauth
 
 from pyramid.response import Response
 from pyramid.view import view_config
+from pyramid.httpexceptions import HTTPFound
 
 #
 # Constants
@@ -55,7 +56,7 @@ def login(request):
     oauth_callback = request.route_url('oauth_callback')
     redirect_url = "%s?oauth_token=%s&oauth_callback=%s" % \
             (AUTHORIZE_URL, request_token['oauth_token'], oauth_callback)
-    return Response(status=302, location=redirect_url)
+    return HTTPFound(location=redirect_url)
 
 @view_config(route_name='oauth_callback')
 def oauth_callback(request):
@@ -83,11 +84,11 @@ def oauth_callback(request):
         session['user'] = user_elt.attrib['display_name']
         session.save()
     # and redirect to the main page
-    return Response(status=302, location=request.route_url('index'))
+    return HTTPFound(location=request.route_url('index'))
 
 @view_config(route_name='logout')
 def logout(request):
     session = request.session
     session.clear()
     session.save()
-    return Response(status=302, location=request.route_url('index'))
+    return HTTPFound(location=request.route_url('index'))
