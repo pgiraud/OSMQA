@@ -6,7 +6,13 @@ here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.txt')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
-requires = ['pyramid', 'pyramid_beaker', 'WebError', 'oauth2==1.2.0']
+requires = [
+    'pyramid',
+    'pyramid_beaker',
+    'WebError',
+    'oauth2==1.2.0',
+    'CouchDB==0.8'
+    ]
 
 setup(name='OSMQA',
       version='0.0',
