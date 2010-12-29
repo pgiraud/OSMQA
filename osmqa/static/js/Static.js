@@ -343,7 +343,6 @@ OpenLayers.Layer.Static = OpenLayers.Class(OpenLayers.Layer.Grid, {
                 //this.redraw();
                 if (!remove) {
                     tile.tags.push(tag);
-                    console.log(tile);
                 } else {
                     OpenLayers.Util.removeItem(tile.tags, tag);
                 }
