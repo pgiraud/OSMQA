@@ -1,0 +1,128 @@
+/**
+ * CSS Reset
+ * From Blueprint reset.css
+ * http://blueprintcss.googlecode.com
+ */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
+body {line-height:1.5;}
+table {border-collapse:separate;border-spacing:0;}
+caption, th, td {text-align:left;font-weight:normal;}
+table, td, th {vertical-align:middle;}
+blockquote:before, blockquote:after, q:before, q:after {content:"";}
+blockquote, q {quotes:"" "";}
+a img {border:none;}
+
+/**
+ * Basic Typography
+ */
+body {
+    font-family: "Lucida Grande", Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+    font-size: 80%;
+    color: #222;
+    background: #fff;
+    margin: 1em 1.5em;
+}
+a[href] {
+    color: #436976;
+    background-color: transparent;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #003a6b;
+    background-color: transparent;
+    font: 100% 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding-top: 0.5em;
+}
+h1 {
+    font-size: 130%;
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid #fcb100;
+}
+h2 {
+    font-size: 120%;
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid #aaa;
+}
+h3 {
+    font-size: 110%;
+    margin-bottom: 0.5em;
+    text-decoration: underline;
+}
+
+/* Page */
+#global {
+	width: 100%; /* -> 3 */
+	overflow: hidden; /* -> 3 */
+}
+
+/* En-tête */
+#header {
+	padding: 10px;
+}
+#header h1 {
+	margin: 0;
+}
+
+/* Right column */
+#right {
+	width: 28%; /* -> 4 */
+	float: right;
+}
+
+/* Content */
+#content {
+	margin-right: 30%; /* -> 6 */
+	padding: 10px 20px;
+}
+#content > :first-child {
+	margin-top: 10px;
+}
+#content p, #content li {
+	line-height: 1.5;
+}
+
+#map {
+    height: 512px;
+}
+.important {
+    font-weight: bold;
+}
+#maptags {
+    display: none;
+}
+.olTile {
+}
+.olTile div {
+    opacity: 0.3;
+    margin: 1px 1px 0 0;
+    height: 100%;
+    background-color: #df9999;
+}
+ul {
+    margin-left: 0;
+    padding-left: 0;
+}
+ul.tags li {
+    display: inline;
+    margin-right: 5px;
+}
+#maplegend div {
+    float: left;
+    display: inline;
+}
+.legend div {
+    width: 20px;
+    height: 20px;
+}
+.valid div {
+    background-color: green;
+}
+.halfvalid div {
+    background-color: orange;
+}
+.selected {
+    border: 1px dashed #555;
+}
+.hover div {
+    opacity: 0.5;
+}

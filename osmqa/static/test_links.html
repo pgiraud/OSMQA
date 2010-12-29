@@ -1,0 +1,87 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>OpenLayers Basic Single WMS Example</title>
+    <script src="jquery-1.4.4.min.js"></script>
+    <script src="OpenLayers.js"></script>
+    <script src="Div.js"></script>
+    <script src="Static.js"></script>
+    <script src="app.js"></script>
+    <style>
+        #tags li {
+            font-size: 12px;
+            list-style-type: none;
+            display: inline;
+            float: left;
+            position: relative;
+            margin: 0 9px 0 0;
+            line-height: 18px;
+        }
+        #tags.over li {
+            margin-right: 7px;
+        }
+        #tags li span {
+            margin-right: 0;
+            padding-right: 4px;
+        }
+        #tags.over li span {
+            background: url(add.png) no-repeat scroll 100% 50%;
+            padding-right: 6px;
+        }
+        #tags li a.remove {
+            display: none;
+            margin-left: -6px;
+            padding-right: 0;
+            width: 8px;
+            height: 13px;
+            z-index: 2;
+            padding: 0;
+        }
+        #tags.over li a.remove {
+            display: inline-block;
+            margin-right: -2px;
+        }
+        #tags li a.remove span {
+            left: -999em;
+            position: absolute;
+        }
+        #tags .tag-item {
+            margin-right: 9px;
+        }
+    </style>
+  </head>
+  <body>
+      <ul id="tags" class="remove">
+          <li>
+              <span>
+                  <a href="javascrip:void(0);" class="tag-item">un lien</a>
+                  <a class="remove"><span>[-]</span></a>
+              </span>
+          </li>
+          <li>
+              <a href="javascrip:void(0);">un lien</a>
+              <a class="add">[+]</a>
+          </li>
+      </ul>
+      <ul id="tags" class="over remove">
+          <li>
+              <span>
+                  <a href="javascrip:void(0);" class="tag-item">un lien</a>
+                  <a class="remove"><span>[-]</span></a>
+              </span>
+          </li>
+          <li>
+              <a href="javascrip:void(0);">un lien</a>
+              <a class="add">[+]</a>
+          </li>
+      </ul>
+      <script type="text/javascript">
+          $('#tags')
+              .mouseover(function(event) {
+                 $(event.currentTarget).addClass('over');
+               })
+              .mouseout(function(event) {
+                 $(event.currentTarget).removeClass('over');
+               });
+      </script>
+  </body>
+</html>

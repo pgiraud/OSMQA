@@ -1,20 +1,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>OpenLayers Basic Single WMS Example</title>
-    <link rel="stylesheet" href="${request.application_url}/static/styles/style.css" type="text/css" />
-    <link rel="stylesheet" href="${request.application_url}/static/styles/master.css" type="text/css" />
-    <link rel="stylesheet" href="${request.application_url}/static/styles/jquery-ui/jquery.ui.autocomplete.custom.css" type="text/css" />
-    <script src="${request.application_url}/static/js/jquery-1.4.4.min.js"></script>
-    <script src="${request.application_url}/static/js/jquery-ui-1.8.7.custom.min.js"></script>
-    <script src="${request.application_url}/static/js/ie-compat.js"></script>
-    <script src="${request.application_url}/static/js/tag-it.js"></script>
-    <script src="${request.application_url}/static/js/OpenLayers.js"></script>
-    <script src="${request.application_url}/static/js/Div.js"></script>
-    <script src="${request.application_url}/static/js/Static.js"></script>
-    <script src="${request.application_url}/static/js/app.js"></script>
+    <link rel="stylesheet" href="styles/style.css" type="text/css" />
+    <link rel="stylesheet" href="styles/master.css" type="text/css" />
+    <link rel="stylesheet" href="styles/jquery-ui/jquery.ui.autocomplete.custom.css" type="text/css" />
+    <script src="js/jquery-1.4.4.min.js"></script>
+    <script src="js/jquery-ui-1.8.7.custom.min.js"></script>
+    <script src="js/ie-compat.js"></script>
+    <script src="js/tag-it.js"></script>
+    <script src="js/OpenLayers.js"></script>
+    <script src="js/Div.js"></script>
+    <script src="js/Static.js"></script>
+    <script src="js/app.js"></script>
     <script type="text/javascript">
-        OpenLayers.ImgPath = "${request.application_url}/static/img/";
-        window.tilesURL = "${request.route_url('tiles')}";
+        OpenLayers.ImgPath = "img/";
     </script>
   </head>
 <body onload="init()">
