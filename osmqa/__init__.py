@@ -12,8 +12,6 @@ def main(global_config, **settings):
     config.add_route('login', '/login')
     config.add_route('oauth_callback', '/oauth_callback')
     config.add_route('logout', '/logout')
-    config.add_subscriber('osmqa.subscribers.add_renderer_globals',
-                          'pyramid.events.BeforeRender')
     config.scan()
     return config.make_wsgi_app()
 
