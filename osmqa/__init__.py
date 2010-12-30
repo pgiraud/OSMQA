@@ -12,7 +12,6 @@ def main(global_config, **settings):
     config.add_static_view('static', 'osmqa:static/')
 
     config.add_route('index', '/')
-    config.add_route('authtest', '/authtest')
     config.add_route('login', '/login')
     config.add_route('oauth_callback', '/oauth_callback')
     config.add_route('logout', '/logout')

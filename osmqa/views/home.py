@@ -39,10 +39,6 @@ consumer = oauth.Consumer(CONSUMER_KEY, CONSUMER_SECRET)
 
 @view_config(route_name='index', renderer='index.mako')
 def index(request):
-    return {}
-
-@view_config(route_name='authtest', renderer='authtest.mako')
-def authtest(request):
     return {"user": request.session.get("user")}
 
 @view_config(route_name='login')
@@ -88,11 +84,11 @@ def oauth_callback(request):
         session['user'] = user_elt.attrib['display_name']
         session.save()
     # and redirect to the main page
-    return HTTPFound(location=request.route_url('authtest'))
+    return HTTPFound(location=request.route_url('index'))
 
 @view_config(route_name='logout')
 def logout(request):
     session = request.session
     session.clear()
     session.save()
-    return HTTPFound(location=request.route_url('authtest'))
+    return HTTPFound(location=request.route_url('index'))
