@@ -19,33 +19,6 @@ function onSelectionChange() {
         createTagsList();
 
         createTagAdder();
-        //var currentTagsList = $('<ul>', {
-            //text: 'Currently validated tags: ',
-            //class: 'tags'
-        //}).appendTo('#results');
-
-        //var tags = $('<ul>', {
-        //}).appendTo('#results');
-        //$.each(tile.tags, function(index, tag) {
-            //$('<li>', {
-                //text: tag
-            //}).appendTo(tags);
-        //});
-        
-        //tags.tagit({
-            //availableTags: frequentTags,
-            //onTagAdded: function(tag) {
-                //tag = tag.children("input").val();
-                //// prevent first load to send request
-                //if (tile.tags.indexOf(tag) == -1) {
-                    //layer.updateTile(tile, tag, false);
-                //}
-            //},
-            //onTagRemoved: function(tag) {
-                //tag = tag.children("input").val();
-                //layer.updateTile(tile, tag, true);
-            //}
-        //});
     }
 }
 
