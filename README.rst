@@ -50,8 +50,3 @@ Want to help?
 -------------
 
 See the TODO.txt.
-
-Aknowledgments
---------------
-
-The tag-it JQuery plugin comes from https://github.com/sskylar/tag-it

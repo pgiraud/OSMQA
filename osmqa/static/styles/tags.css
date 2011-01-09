@@ -1,0 +1,30 @@
+ul.tags {
+    padding: 0;
+    margin: 0;
+    overflow:auto;
+    color: #436976;
+}
+ul.tags li.tag:hover {
+    color: #0063AC;
+}
+ul.tags li {
+    cursor:pointer;
+    display: block;
+    float: left;
+    margin:2px 5px 2px 0;
+}
+ul.tags li.tag a.close {
+    visibility: hidden;
+    cursor:pointer;
+    /*font-weight:bold;*/
+    outline:medium none;
+    padding:2px 0 2px 3px;
+    text-decoration:none;
+}
+ul.tags li.tag:hover a.close {
+    visibility: visible;
+    color: #999;
+}
+ul.tags li.tag a.close:hover {
+    color:#922;
+}

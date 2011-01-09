@@ -26,6 +26,9 @@ a[href] {
     color: #436976;
     background-color: transparent;
 }
+a:hover {
+    color: #0063AC;
+}
 h1, h2, h3, h4, h5, h6 {
     color: #003a6b;
     background-color: transparent;
@@ -97,14 +100,6 @@ h3 {
     margin: 1px 1px 0 0;
     height: 100%;
     background-color: #df9999;
-}
-ul {
-    margin-left: 0;
-    padding-left: 0;
-}
-ul.tags li {
-    display: inline;
-    margin-right: 5px;
 }
 #maplegend div {
     float: left;
