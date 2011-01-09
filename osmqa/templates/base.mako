@@ -3,8 +3,6 @@
     <title>${self.title()}</title>
     <link rel="stylesheet" href="${request.application_url}/static/styles/style.css"
           type="text/css" />
-    <link rel="stylesheet" href="${request.application_url}/static/styles/master.css"
-          type="text/css" />
     ${self.head()}
   </head>
   <%self:bodytag>
