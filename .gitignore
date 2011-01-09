@@ -1,3 +1,6 @@
 OSMQA.egg-info/
 data/
 *.pyc
+env/
+build/
+dist/
