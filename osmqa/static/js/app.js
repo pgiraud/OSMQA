@@ -17,17 +17,31 @@ function onSelectionChange() {
         }).appendTo('#results');
 
         createTagsList();
-
-        createTagAdder();
     }
 }
 
 function createTagsList() {
     var tile = layer.selectedTiles[0];
+
+    var h2 = $('<h2 />', {
+        text: "Tags "
+    });
+    if (window.user) {
+        
+        $('<small />')
+            .append('(')
+            .append($('<a />', {
+                text: 'ajouter un tag',
+                click: function() {
+                    addTagAdder();
+                }
+            }))
+            .append(')')
+            .appendTo(h2);
+    }
+
     $('#results')
-        .append($('<h2 />', {
-            text: "Tags"
-        }))
+        .append(h2)
         .append($('<ul />', {
             "class": "tags"
         }));
@@ -58,7 +72,7 @@ function addTag(tag) {
     .appendTo('#results ul.tags');
 }
 
-function createTagAdder() {
+function addTagAdder() {
     var tile = layer.selectedTiles[0];
     var tagInput = $('<input />')
         .appendTo('#results');

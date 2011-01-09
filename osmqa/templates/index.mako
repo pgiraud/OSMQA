@@ -20,6 +20,9 @@
     <script type="text/javascript">
         OpenLayers.ImgPath = "${request.application_url}/static/img/";
         window.tilesURL = "${request.route_url('tiles')}";
+        % if user is not None:
+            window.user = '${user}';
+        % endif
     </script>
 </%def>
 

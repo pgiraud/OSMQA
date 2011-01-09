@@ -22,10 +22,12 @@ body {
     background: #fff;
     margin: 1em 1.5em;
 }
-a[href] {
+a[href], small a {
+    cursor: pointer;
     color: #436976;
     background-color: transparent;
 }
+
 a:hover {
     color: #0063AC;
 }
@@ -50,6 +52,10 @@ h3 {
     font-size: 110%;
     margin-bottom: 0.5em;
     text-decoration: underline;
+}
+
+small {
+    font-size: 11px;
 }
 
 /* Page */
