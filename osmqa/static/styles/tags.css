@@ -11,7 +11,7 @@ ul.tags li {
     cursor:pointer;
     display: block;
     float: left;
-    margin:2px 5px 2px 0;
+    margin:2px 5px 2px 4px;
 }
 ul.tags li.tag a.close {
     visibility: hidden;
