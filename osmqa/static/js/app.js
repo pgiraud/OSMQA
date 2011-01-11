@@ -81,12 +81,24 @@ function addTagAdder() {
     tagInput.autocomplete({
         source: frequentTags,
         select: function(event, ui) {
-            addTag(ui.item.value);
-            // Preventing the tag input to be updated with the chosen value.
-            return false;
+            if (event.keyCode == 13) {
+                // the keypress event will do the job itself
+                return;
+            }
+            var val = ui.item.value;
+            layer.updateTile(tile, val, false, function() {
+                addTag(val);
+            });
+            ui.item.value = '';
         },
-        minLength: 0
+        minLength: 0,
+        delay: 0
+    }).focus(function(){
+        if (this.value === "") {
+            $(this).trigger('keydown.autocomplete');
+        }
     });
+    //tagInput.autocomplete('search', '');
 
     // checks the keypress event for enter or comma, and adds a new tag
     // when either of those keys are pressed
