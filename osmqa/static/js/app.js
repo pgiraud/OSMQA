@@ -56,20 +56,22 @@ function addTag(tag) {
     var li = $("<li />", {
         "class": "tag",
         text: tag
-    })
-    .append($("<a>", {
-        "class": "close",
-        text: "x",
-        title: "Remove this tag ?",
-        click: function() {
-            layer.updateTile(tile, tag, true, function() {
-                li.fadeOut(300, function() {
-                    $(this).remove();
+    });
+    if (window.user) {
+        li.append($("<a>", {
+            "class": "close",
+            text: "x",
+            title: "Remove this tag ?",
+            click: function() {
+                layer.updateTile(tile, tag, true, function() {
+                    li.fadeOut(300, function() {
+                        $(this).remove();
+                    });
                 });
-            });
-        }
-    }))
-    .appendTo('#results ul.tags');
+            }
+        }));
+    }
+    li.appendTo('#results ul.tags');
 }
 
 function addTagAdder() {
@@ -151,6 +153,10 @@ function init(){
             changeMapTag(this.value);
         }
     }).appendTo('#maptags');
+
+    if (window.user) {
+        $('#results').addClass('isLogged');
+    }
 }
 
 function changeMapTag(tag) {
