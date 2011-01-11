@@ -55,7 +55,7 @@ function addTag(tag) {
     var tile = layer.selectedTiles[0];
     var li = $("<li />", {
         "class": "tag",
-        text: tag
+        html: '<span>' + tag + '</span>'
     });
     if (window.user) {
         li.append($("<a>", {
@@ -122,11 +122,13 @@ function addTagAdder() {
                     addTag(val);
                     tagInput.autocomplete("option", "source", filter());
                 });
-                $(this).val("");
+            } else {
+                $("li.tag span:econtains('" + val + "')").effect("highlight", {}, 3000);
             }
+
+            $(this).val("");
         }
     });
-
 }
 
 function init(){
@@ -187,3 +189,8 @@ function changeMapTag(tag) {
     layer.changeTag(tag);
     $('#maptag').html(tag);
 }
+
+// an equivalent to :contains() selector but with exact match
+$.expr[":"].econtains = function(obj, index, meta, stack) {
+    return (obj.textContent || obj.innerText || $(obj).text() || "").toLowerCase() == meta[3].toLowerCase();
+};
