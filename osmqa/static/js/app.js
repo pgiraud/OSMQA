@@ -28,12 +28,13 @@ function createTagsList() {
     });
     if (window.user) {
         
-        $('<small />')
+        var adderText = $('<small />')
             .append('(')
             .append($('<a />', {
                 text: 'ajouter un tag',
                 click: function() {
                     addTagAdder();
+                    adderText.remove();
                 }
             }))
             .append(')')
