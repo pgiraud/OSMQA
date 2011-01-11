@@ -78,8 +78,18 @@ function addTagAdder() {
     var tile = layer.selectedTiles[0];
     var tagInput = $('<input />')
         .appendTo('#results');
+    var filter = function() {
+        var r = [];
+        $.each(frequentTags, function(index, tag) {
+            if (tile.tags.indexOf(tag) == -1) {
+                r.push(tag);
+            }
+        });
+        return r;
+    };
+
     tagInput.autocomplete({
-        source: frequentTags,
+        source: filter(),
         select: function(event, ui) {
             if (event.keyCode == 13) {
                 // the keypress event will do the job itself
@@ -88,6 +98,7 @@ function addTagAdder() {
             var val = ui.item.value;
             layer.updateTile(tile, val, false, function() {
                 addTag(val);
+                tagInput.autocomplete("option", "source", filter());
             });
             ui.item.value = '';
         },
@@ -109,6 +120,7 @@ function addTagAdder() {
             if (val !== "" && tile.tags.indexOf(val) == -1) {
                 layer.updateTile(tile, val, false, function() {
                     addTag(val);
+                    tagInput.autocomplete("option", "source", filter());
                 });
                 $(this).val("");
             }
