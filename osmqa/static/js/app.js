@@ -59,6 +59,7 @@ function createTagsList(tiles) {
         }));
     getSharedTags();
 
+    sharedTags.sort();
     $.each(sharedTags, function(index, tag) {
         addTag(tag);
     });
