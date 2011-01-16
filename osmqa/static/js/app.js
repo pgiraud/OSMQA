@@ -42,7 +42,7 @@ function createTagsList(tiles) {
         var adderText = $('<small />')
             .append('(')
             .append($('<a />', {
-                text: 'ajouter un tag',
+                text: 'add a tag',
                 click: function() {
                     addTagAdder();
                     adderText.remove();
