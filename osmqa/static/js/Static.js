@@ -108,6 +108,9 @@ OpenLayers.Layer.Static = OpenLayers.Class(OpenLayers.Layer.Grid, {
             OpenLayers.Layer.Grid.prototype.moveTo.apply(this, arguments);
 
             this.getRange();
+            this.div.style.display = 'block';
+        } else {
+            this.div.style.display = 'none';
         }
     },
 
