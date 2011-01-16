@@ -167,7 +167,6 @@ OpenLayers.Layer.Static = OpenLayers.Class(OpenLayers.Layer.Grid, {
      *     of the tiles.
      */
     getRange: function() {
-        this.unselectAll();
         var res = this.map.getResolution();
         var bounds = this.map.getExtent();
         var minx = Math.round((bounds.left - this.maxExtent.left) 
