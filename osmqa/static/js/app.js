@@ -1,5 +1,6 @@
 var map, layer;
 var frequentTags = ['highway', 'cycleway', 'building'];
+var sharedTags;
 
 function onSelectionChange() {
     $('#tileconfighelp').show();
@@ -16,9 +17,8 @@ function onSelectionChange() {
             text: tile.location[0] + ' ' + tile.location[1]
         }).appendTo('#results');
 
-        createTagsList(tile);
+        createTagsList();
     } else if (layer.selectedTiles.length > 1) {
-        console.log("more than one tile selected");
         $('#tileconfighelp').hide();
         $('#results')
             .append($('<h2 />', {
@@ -29,11 +29,11 @@ function onSelectionChange() {
             text: layer.selectedTiles.length
         }).appendTo('#results');
 
-        //createTagsList();
+        createTagsList();
     }
 }
 
-function createTagsList(tile) {
+function createTagsList(tiles) {
     var h2 = $('<h2 />', {
         text: "Tags "
     });
@@ -57,14 +57,36 @@ function createTagsList(tile) {
         .append($('<ul />', {
             "class": "tags"
         }));
+    getSharedTags();
 
-        $.each(tile.tags, function(index, tag) {
-            addTag(tag);
+    $.each(sharedTags, function(index, tag) {
+        addTag(tag);
+    });
+}
+
+function getSharedTags() {
+    var tiles = layer.selectedTiles;
+    if (tiles.length == 1) {
+        sharedTags = tiles[0].tags;
+    } else {
+        // get the shared tags
+        sharedTags = [];
+        $.each(tiles[0].tags, function(index, tag) {
+            var shared = true;
+            for (var i = 1, len = tiles.length; i < len; i++) {
+                if (tiles[i].tags.indexOf(tag) == -1) {
+                    shared = false;
+                }
+            }
+            if (shared) {
+                sharedTags.push(tag);
+            }
         });
+    }
 }
 
 function addTag(tag) {
-    var tile = layer.selectedTiles[0];
+    var tiles = layer.selectedTiles;
     var li = $("<li />", {
         "class": "tag",
         html: '<span>' + tag + '</span>'
@@ -75,10 +97,11 @@ function addTag(tag) {
             text: "x",
             title: "Remove this tag ?",
             click: function() {
-                layer.updateTile(tile, tag, true, function() {
+                layer.updateTile(tiles, tag, true, function() {
                     li.fadeOut(300, function() {
                         $(this).remove();
                     });
+                    getSharedTags();
                 });
             }
         }));
@@ -87,13 +110,13 @@ function addTag(tag) {
 }
 
 function addTagAdder() {
-    var tile = layer.selectedTiles[0];
+    var tiles = layer.selectedTiles;
     var tagInput = $('<input />')
         .appendTo('#results');
     var filter = function() {
         var r = [];
         $.each(frequentTags, function(index, tag) {
-            if (tile.tags.indexOf(tag) == -1) {
+            if (sharedTags.indexOf(tag) == -1) {
                 r.push(tag);
             }
         });
@@ -108,8 +131,9 @@ function addTagAdder() {
                 return;
             }
             var val = ui.item.value;
-            layer.updateTile(tile, val, false, function() {
+            layer.updateTile(tiles, val, false, function() {
                 addTag(val);
+                getSharedTags();
                 tagInput.autocomplete("option", "source", filter());
             });
             ui.item.value = '';
@@ -130,8 +154,9 @@ function addTagAdder() {
             e.preventDefault();
             var val = $(this).val();
             if (val !== "" && tile.tags.indexOf(val) == -1) {
-                layer.updateTile(tile, val, false, function() {
+                layer.updateTile(tiles, val, false, function() {
                     addTag(val);
+                    getSharedTags();
                     tagInput.autocomplete("option", "source", filter());
                 });
             } else {

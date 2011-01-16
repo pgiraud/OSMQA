@@ -324,38 +324,51 @@ OpenLayers.Layer.Static = OpenLayers.Class(OpenLayers.Layer.Grid, {
      * Method: updateTile
      *
      * Parameters
-     * tile {OpenLayers.Tile.Div} The tile to change the tag for
+     * tiles {Array({OpenLayers.Tile.Div)} The tiles to change the tag for
      * tag {String} The tag to add or remove
      * remove {Boolean} true to remove the tag, false to remove it
      * callback {Function} the function called on success
      */
-    updateTile: function(tile, tag, remove, callback) {
-        var url = OpenLayers.String.format(
-            '${tilesURL}/${x},${y}/tags/${tag}', {
-            'tilesURL': this.tilesURL,
-            'x': tile.location[0],
-            'y': tile.location[1],
-            'tag': tag
-        });
-        OpenLayers.Request.issue({
-            method: remove ? 'DELETE' : 'PUT',
-            url: url,
-            success: function(response) {
-                //this.unselectAll();
-                //this.redraw();
-                if (!remove) {
-                    tile.tags.push(tag);
-                } else {
-                    OpenLayers.Util.removeItem(tile.tags, tag);
-                }
+    updateTile: function(tiles, tag, remove, callback) {
+        var nResponses = 0;
+        var nRequests = tiles.length;
+
+        function onSuccess(tile, response) {
+            if (!remove) {
+                tile.tags.push(tag);
+            } else {
+                OpenLayers.Util.removeItem(tile.tags, tag);
+            }
+            nResponses++;
+            if (nResponses >= nRequests) {
                 this.refresh();
                 if (callback) {
                     callback.call();
                 }
-            },
-            scope: this
-        });
+            }
+        }
 
+        var tile;
+        for (var i = 0, len = tiles.length; i < len; i++) {
+            tile = tiles[i];
+            // don't re-add a tag
+            if (!remove && tile.tags.indexOf(tag) != -1) {
+                nRequests--;
+                continue;
+            }
+            var url = OpenLayers.String.format(
+                '${tilesURL}/${x},${y}/tags/${tag}', {
+                'tilesURL': this.tilesURL,
+                'x': tile.location[0],
+                'y': tile.location[1],
+                'tag': tag
+            });
+            OpenLayers.Request.issue({
+                method: remove ? 'DELETE' : 'PUT',
+                url: url,
+                success: OpenLayers.Function.bind(onSuccess, this, tile)
+            });
+        }
     },
 
     CLASS_NAME: "OpenLayers.Layer.Static"
