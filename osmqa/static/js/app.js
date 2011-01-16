@@ -16,13 +16,24 @@ function onSelectionChange() {
             text: tile.location[0] + ' ' + tile.location[1]
         }).appendTo('#results');
 
-        createTagsList();
+        createTagsList(tile);
+    } else if (layer.selectedTiles.length > 1) {
+        console.log("more than one tile selected");
+        $('#tileconfighelp').hide();
+        $('#results')
+            .append($('<h2 />', {
+                text: "Selected areas"
+            }));
+        $('<p>', {
+            'class': 'important',
+            text: layer.selectedTiles.length
+        }).appendTo('#results');
+
+        //createTagsList();
     }
 }
 
-function createTagsList() {
-    var tile = layer.selectedTiles[0];
-
+function createTagsList(tile) {
     var h2 = $('<h2 />', {
         text: "Tags "
     });

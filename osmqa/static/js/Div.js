@@ -207,8 +207,12 @@ OpenLayers.Tile.Div = OpenLayers.Class(OpenLayers.Tile, {
      * Method: onClick
      */
     onClick: function(event) {
-        this.layer.unselectAll();
-        this.select();
+        if (!event.ctrlKey) {
+            this.layer.unselectAll();
+            this.select();
+        } else {
+            this.toggleSelect();
+        }
     },
 
     /**
@@ -224,9 +228,24 @@ OpenLayers.Tile.Div = OpenLayers.Class(OpenLayers.Tile, {
     /**
      * APIMethod: unselect
      */
-    unselect: function() {
-        this.events.triggerEvent("unselect");
+    unselect: function(silent) {
+        if (!silent) {
+            this.events.triggerEvent("unselect");
+        }
         OpenLayers.Element.removeClass(this.div, 'selected');
+    },
+
+    /**
+     * APIMethod: toggleSelect
+     */
+    toggleSelect: function() {
+        if (this.div.className.indexOf("selected") != -1) {
+            this.events.triggerEvent("unselect");
+            OpenLayers.Element.removeClass(this.div, 'selected');
+        } else {
+            this.events.triggerEvent("select");
+            OpenLayers.Element.addClass(this.div, 'selected');
+        }
     },
     
     CLASS_NAME: "OpenLayers.Tile.Div"

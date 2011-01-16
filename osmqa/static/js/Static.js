@@ -136,6 +136,7 @@ OpenLayers.Layer.Static = OpenLayers.Class(OpenLayers.Layer.Grid, {
             },
             'unselect': function() {
                 OpenLayers.Util.removeItem(this.selectedTiles, tile);
+                this.events.triggerEvent('selectionchange');
             },
             scope: this
         });
@@ -290,12 +291,11 @@ OpenLayers.Layer.Static = OpenLayers.Class(OpenLayers.Layer.Grid, {
      * APIMethod: unselectAll
      */
     unselectAll: function() {
-        //$('#tileconfighelp').show();
-        //$('#results').empty();
+        this.selectedTiles = [];
         for (var row = 0; row < this.grid.length; row++) {
             for (var col = 0; col < this.grid[row].length; col++) {
                 var cell = this.grid[row][col];
-                cell.unselect();
+                cell.unselect(true);
             }
         }
     },
