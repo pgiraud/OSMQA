@@ -154,7 +154,7 @@ function addTagAdder() {
         if (e.which == 13 || e.which == 44) {
             e.preventDefault();
             var val = $(this).val();
-            if (val !== "" && tile.tags.indexOf(val) == -1) {
+            if (val !== "") {
                 layer.updateTile(tiles, val, false, function() {
                     addTag(val);
                     getSharedTags();
