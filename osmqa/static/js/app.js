@@ -92,6 +92,10 @@ function addTag(tag) {
     var li = $("<li />", {
         "class": "tag",
         html: '<span>' + tag + '</span>',
+        title: 'Click to use for the map legend',
+        click: function() {
+            changeMapTag(tag);
+        },
         mouseover: function() {
             layer.changeTag(tag);
         },
@@ -113,6 +117,7 @@ function addTag(tag) {
                     getSharedTags();
                 });
                 layer.changeTag(currentMapTag);
+                return false;
             }
         }));
     }
@@ -235,7 +240,7 @@ function init(){
 function changeMapTag(tag) {
     currentMapTag = tag;
     layer.changeTag(tag);
-    $('#maptag').html(tag);
+    $('#currentMapTag').html(tag);
 }
 
 // an equivalent to :contains() selector but with exact match

@@ -52,12 +52,16 @@
         <div id="maplegend">
           Legend:&nbsp;
           <div class="legend olTile valid">
-            <div>&nbsp;</div>
+            <div>
+                <img src="${request.application_url}/static/img/blank.gif" />
+            </div>
           </div>
-          <div>Validated tiles (current tag)</div>
+          <div>Tiles validated for "<span id="currentMapTag">any tags</span>"</div>
           <div class="legend olTile halfvalid">
-            <div>&nbsp;</div>
+            <div>
+                <img src="${request.application_url}/static/img/blank.gif" />
+            </div>
           </div>
-          <div>Validated tiles (other tag)</div>
+          <div>Tiles validated for other tags</div>
         </div>
 </%def>

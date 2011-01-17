@@ -108,10 +108,10 @@ small {
     background-color: #df9999;
 }
 #maplegend div {
-    float: left;
     display: inline;
+    height: 20px;
 }
-.legend div {
+.legend img {
     width: 20px;
     height: 20px;
 }
