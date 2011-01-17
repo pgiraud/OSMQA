@@ -1,6 +1,7 @@
 var map, layer;
 var frequentTags = ['highway', 'cycleway', 'building'];
 var sharedTags;
+var currentMapTag = 'all';
 
 function onSelectionChange() {
     $('#tileconfighelp').show();
@@ -90,8 +91,15 @@ function addTag(tag) {
     var tiles = layer.selectedTiles;
     var li = $("<li />", {
         "class": "tag",
-        html: '<span>' + tag + '</span>'
+        html: '<span>' + tag + '</span>',
+        mouseover: function() {
+            layer.changeTag(tag);
+        },
+        mouseout: function() {
+            layer.changeTag(currentMapTag);
+        }
     });
+
     if (window.user) {
         li.append($("<a>", {
             "class": "close",
@@ -104,6 +112,7 @@ function addTag(tag) {
                     });
                     getSharedTags();
                 });
+                layer.changeTag(currentMapTag);
             }
         }));
     }
@@ -224,6 +233,7 @@ function init(){
 }
 
 function changeMapTag(tag) {
+    currentMapTag = tag;
     layer.changeTag(tag);
     $('#maptag').html(tag);
 }
