@@ -355,8 +355,9 @@ OpenLayers.Layer.Static = OpenLayers.Class(OpenLayers.Layer.Grid, {
         var tile;
         for (var i = 0, len = tiles.length; i < len; i++) {
             tile = tiles[i];
-            // don't re-add a tag
-            if (!remove && tile.tags.indexOf(tag) != -1) {
+            // don't re-add a tag or re-remove a tag
+            if (!remove && tile.tags.indexOf(tag) != -1 ||
+                remove && tile.tags.indexOf(tag) == -1) {
                 nRequests--;
                 continue;
             }
