@@ -50,18 +50,6 @@
 
 <%def name="content()">
         <div id="maplegend">
-          Legend:&nbsp;
-          <div class="legend olTile valid">
-            <div>
-                <img src="${request.application_url}/static/img/blank.gif" />
-            </div>
-          </div>
-          <div>Tiles validated for "<span id="currentMapTag">any tags</span>"</div>
-          <div class="legend olTile halfvalid">
-            <div>
-                <img src="${request.application_url}/static/img/blank.gif" />
-            </div>
-          </div>
-          <div>Tiles validated for other tags</div>
+          <div class="label">Tiles validated for "<span id="currentMapTag">any tags</span>"</div>
         </div>
 </%def>

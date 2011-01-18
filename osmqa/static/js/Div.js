@@ -60,7 +60,14 @@ OpenLayers.Tile.Div = OpenLayers.Class(OpenLayers.Tile, {
         this.div.style.position = 'absolute'; 
         this.div.className = 'olTile';
 
-        this.div.appendChild(document.createElement('div'));
+        var back = document.createElement('div');
+        back.className = 'back';
+        this.div.appendChild(back);
+
+        var front = document.createElement('div');
+        front.className = 'front';
+        this.div.appendChild(front);
+        
         this.location = options.location;
 
         this.tags = [];
@@ -154,6 +161,7 @@ OpenLayers.Tile.Div = OpenLayers.Class(OpenLayers.Tile, {
     initDiv: function() {
         this.layer.div.appendChild(this.div); 
         var size = this.layer.getImageSize(this.bounds); 
+        size = new OpenLayers.Size(size.w - 2, size.h - 2);
         OpenLayers.Util.modifyDOMElement(this.div, 
                                       null, this.position, size);   
         var events = new OpenLayers.Events(this, this.div);
@@ -177,16 +185,46 @@ OpenLayers.Tile.Div = OpenLayers.Class(OpenLayers.Tile, {
      */
     markAsInvalid: function() {
         OpenLayers.Element.removeClass(this.div, 'valid');
-        OpenLayers.Element.removeClass(this.div, 'halfvalid');
     },
 
     /**
      * APIMethod: markAsValid
      */
-    markAsValid: function(full) {
-        this.markAsInvalid();
-        var cls = (full) ? 'valid' : 'halfvalid';
-        OpenLayers.Element.addClass(this.div, cls);
+    markAsValid: function() {
+        OpenLayers.Element.addClass(this.div, 'valid');
+    },
+
+    /**
+     * APIMethod: setTags
+     * Set the tags property and changes the className of the div
+     */
+    setTags: function(tags) {
+        this.tags = tags;
+        OpenLayers.Element.addClass(this.div, 'hasTags');
+    },
+
+    /**
+     * APIMethod: addTag
+     *
+     * Parameters:
+     * tag {String]
+     */
+    addTag: function(tag) {
+        this.tags.push(tag);
+        OpenLayers.Element.addClass(this.div, 'hasTags');
+    },
+
+    /**
+     * APIMethod: removeTag
+     *
+     * Parameters:
+     * tag {String]
+     */
+    removeTag: function(tag) {
+        OpenLayers.util.removeItem(this.tags, tag);
+        if (this.tags.length === 0) {
+            OpenLayers.Element.removeClass(this.div, 'hasTags');
+        }
     },
 
     /**

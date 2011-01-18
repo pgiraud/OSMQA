@@ -220,11 +220,13 @@ OpenLayers.Layer.Static = OpenLayers.Class(OpenLayers.Layer.Grid, {
                     cell = this.grid[row][col];
                     if (x == cell.location[0] &&
                         y == cell.location[1]) {
-                            full = (this.tag == 'all' ||
-                                tile.value.tags.indexOf(this.tag) != -1) ?
-                                    true : false;
-                            cell.tags = tile.value.tags;
-                            cell.markAsValid(full);
+                            //full = (this.tag == 'all' ||
+                                //tile.value.tags.indexOf(this.tag) != -1) ?
+                                    //true : false;
+                        cell.setTags(tile.value.tags);
+                        if (tile.value.tags.indexOf(this.tag) != -1) {
+                            cell.markAsValid();
+                        }
                     }
                 }
             }
@@ -276,14 +278,16 @@ OpenLayers.Layer.Static = OpenLayers.Class(OpenLayers.Layer.Grid, {
         for (var row = 0; row < this.grid.length; row++) {
             for (var col = 0; col < this.grid[row].length; col++) {
                 var cell = this.grid[row][col];
+                cell.markAsInvalid();
                 if (cell.tags.length > 0) {
+                    if (cell.tags.indexOf(this.tag) != -1) {
+                        cell.markAsValid();
+                    }
                     //console.log("ixi", cell.tags.length, cell.location[0]);
-                    var full = (this.tag == 'all' ||
-                        cell.tags.indexOf(this.tag) != -1) ?
-                            true : false;
-                    cell.markAsValid(full);
-                } else {
-                    cell.markAsInvalid();
+                    //var full = (this.tag == 'all' ||
+                        //cell.tags.indexOf(this.tag) != -1) ?
+                            //true : false;
+                    //cell.markAsValid(full);
                 }
             }
         }
@@ -335,9 +339,9 @@ OpenLayers.Layer.Static = OpenLayers.Class(OpenLayers.Layer.Grid, {
 
         function onSuccess(tile, response) {
             if (!remove) {
-                tile.tags.push(tag);
+                tile.addTag(tag);
             } else {
-                OpenLayers.Util.removeItem(tile.tags, tag);
+                tile.removeTag(tag);
             }
             nResponses++;
             if (nResponses >= nRequests) {

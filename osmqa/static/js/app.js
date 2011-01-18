@@ -92,7 +92,7 @@ function addTag(tag) {
     var li = $("<li />", {
         "class": "tag",
         html: '<span>' + tag + '</span>',
-        title: 'Click to use for the map legend',
+        title: 'Click to use this tag for the map',
         click: function() {
             changeMapTag(tag);
         },

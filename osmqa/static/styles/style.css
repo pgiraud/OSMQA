@@ -100,30 +100,27 @@ small {
     display: none;
 }
 .olTile {
+    margin: 4px;
+    border: 1px solid transparent;
 }
 .olTile div {
-    opacity: 0.3;
-    margin: 1px 1px 0 0;
     height: 100%;
+    width: 100%;
+    position: absolute;
+}
+.olTile div.back {
+    opacity: 0.3;
     background-color: #df9999;
 }
-#maplegend div {
-    display: inline;
-    height: 20px;
+.hasTags div.front {
+    background: url(../img/tick-small.png) no-repeat top right;
 }
-.legend img {
-    width: 20px;
-    height: 20px;
-}
-.valid div {
+.valid div.back {
     background-color: green;
-}
-.halfvalid div {
-    background-color: orange;
 }
 .selected {
     border: 1px dashed #555;
 }
-.hover div {
+.hover div.back {
     opacity: 0.5;
 }
