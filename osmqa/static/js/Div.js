@@ -221,7 +221,7 @@ OpenLayers.Tile.Div = OpenLayers.Class(OpenLayers.Tile, {
      * tag {String]
      */
     removeTag: function(tag) {
-        OpenLayers.util.removeItem(this.tags, tag);
+        OpenLayers.Util.removeItem(this.tags, tag);
         if (this.tags.length === 0) {
             OpenLayers.Element.removeClass(this.div, 'hasTags');
         }

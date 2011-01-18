@@ -54,16 +54,50 @@ function createTagsList(tiles) {
     }
 
     $('#results')
-        .append(h2)
-        .append($('<ul />', {
-            "class": "tags"
-        }));
+        .append(h2);
+
+    var sharedList = $('<ul />', {
+        "class": "tags"
+    });
+
     getSharedTags();
 
+    if (layer.selectedTiles.length > 1 && sharedTags.length) {
+        $('#results')
+            .append('Shared tags:');
+    }
     sharedTags.sort();
     $.each(sharedTags, function(index, tag) {
-        addTag(tag);
+        var item = addTag(tag);
+        sharedList.append(item);
     });
+    $('#results').append(sharedList);
+
+    if (layer.selectedTiles.length > 1) {
+        if (layer.selectedTiles.length > 1 && sharedTags) {
+            var unsharedTags = [];
+            $.each(layer.selectedTiles, function(i, tile) {
+                $.each(tile.tags, function(j, tag) {
+                    if (sharedTags.indexOf(tag) == -1 &&
+                        unsharedTags.indexOf(tag) == -1) {
+                        unsharedTags.push(tag);
+                    }
+                });
+            });
+        }
+        if (unsharedTags.length) {
+            $('#results')
+                .append('Unshared tags:');
+            var unsharedList = $('<ul />', {
+                "class": "tags"
+            });
+            $.each(unsharedTags, function(j, tag) {
+                var item = addTag(tag);
+                unsharedList.append(item);
+            });
+            $('#results').append(unsharedList);
+        }
+    }
 }
 
 function getSharedTags() {
@@ -121,7 +155,8 @@ function addTag(tag) {
             }
         }));
     }
-    li.appendTo('#results ul.tags');
+    return li;
+    //li.appendTo('#results ul.tags');
 }
 
 function addTagAdder() {
@@ -147,7 +182,9 @@ function addTagAdder() {
             }
             var val = ui.item.value;
             layer.updateTile(tiles, val, false, function() {
-                addTag(val);
+                var item = addTag(val);
+                item.appendTo('#results ul:first.tags');
+                // FIXME the unshared tags may need to be updated
                 getSharedTags();
                 tagInput.autocomplete("option", "source", filter());
             });
