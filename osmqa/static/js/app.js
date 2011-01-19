@@ -223,6 +223,7 @@ function addTagAdder() {
 function init(){
     map = new OpenLayers.Map('map');
     layer = new OpenLayers.Layer.OSM('Simple OSM Map');
+    layer.setOpacity(0.7);
     map.addLayer(layer);
     layer = new OpenLayers.Layer.Static('Simple OSM Map', window.tilesURL, {
         maxResolution: 76.43702827148438,
