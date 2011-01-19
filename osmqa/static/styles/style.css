@@ -116,7 +116,7 @@ small {
     background-color: grey;
 }
 .hasTags div.front {
-    background: url(../img/tick-small.png) no-repeat top right;
+    background: url(../img/tick-small.png) no-repeat center center;
 }
 .hover div.back {
     background-color: grey;
