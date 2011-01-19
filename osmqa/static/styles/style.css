@@ -110,17 +110,21 @@ small {
 }
 .olTile div.back {
     opacity: 0.3;
-    background-color: #df9999;
+    /*background-color: #df9999;*/
+}
+.hasTags div.back {
+    background-color: grey;
 }
 .hasTags div.front {
     background: url(../img/tick-small.png) no-repeat top right;
+}
+.hover div.back {
+    background-color: grey;
+    opacity: 0.5;
 }
 .valid div.back {
     background-color: green;
 }
 .selected {
     border: 1px dashed #555;
-}
-.hover div.back {
-    opacity: 0.5;
 }
