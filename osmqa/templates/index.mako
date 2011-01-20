@@ -50,6 +50,6 @@
 
 <%def name="content()">
         <div id="maplegend">
-          <div class="label">Tiles validated for "<span id="currentMapTag">any tags</span>"</div>
+          <div class="label">Tiles validated for <span id="currentMapTag">any tag</span></div>
         </div>
 </%def>

@@ -28,3 +28,8 @@ ul.tags li.tag:hover a.close {
 ul.tags li.tag a.close:hover {
     color:#922;
 }
+
+#currentMapTag {
+    cursor: pointer;
+    color: #436976;
+}

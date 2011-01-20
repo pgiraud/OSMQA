@@ -277,6 +277,58 @@ function init(){
     if (window.user) {
         $('#results').addClass('isLogged');
     }
+
+    // map tag edit-in-place
+    $('#currentMapTag')
+        .click(function() {
+            var element = $(this);
+            element.hide();
+            var edit = $('<input type="text" class="edit_in_place" />');
+            edit.css({
+                'height': element.height()-2
+            });
+            edit.val(element.text());
+            element.after(edit);
+            var updateMapTagAdder = function() {
+                var value = edit.val() || 'any tag';
+                edit.hide();
+                element.show();
+                changeMapTag(value);
+                edit.remove();
+            };
+            edit.keydown(function(e){
+                    if(e.which===27) {
+                        edit.blur(); // blur on Esc
+                    }
+                    if(e.which===13 || e.which===9){ // Enter or Tab
+                        e.preventDefault();
+                        updateMapTagAdder();
+                    }
+                })
+                .autocomplete({
+                    source: frequentTags,
+                    select: function(event, ui) {
+                        if (event.keyCode == 13) {
+                            // the keypress event will do the job itself
+                            return;
+                        }
+                        edit.val(ui.item.value);
+                        updateMapTagAdder();
+                    },
+                    minLength: 0,
+                    delay: 0
+                })
+                .blur(function(e) {
+                    // add a delay to let the select happend
+                    window.setTimeout(function() {
+                        edit.remove();
+                        element.show();
+                    }, 200);
+                })
+                .val('')
+                .trigger('keydown.autocomplete')
+                .focus();
+        });
 }
 
 function changeMapTag(tag) {
@@ -284,6 +336,7 @@ function changeMapTag(tag) {
     layer.changeTag(tag);
     $('#currentMapTag').html(tag);
 }
+
 
 // an equivalent to :contains() selector but with exact match
 $.expr[":"].econtains = function(obj, index, meta, stack) {
