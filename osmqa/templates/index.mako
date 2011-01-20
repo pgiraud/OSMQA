@@ -4,13 +4,13 @@
 
 <%def name="head()">
     <link rel="stylesheet"
-          href="${request.application_url}/static/styles/jquery-ui/jquery.ui.autocomplete.custom.css"
+          href="${request.application_url}/static/styles/jquery-ui/ui-lightness/jquery-ui-1.8.8.custom.css"
           type="text/css" />
     <link rel="stylesheet"
           href="${request.application_url}/static/styles/tags.css"
           type="text/css" />
     <script src="${request.application_url}/static/js/jquery-1.4.4.min.js"></script>
-    <script src="${request.application_url}/static/js/jquery-ui-1.8.7.custom.min.js"></script>
+    <script src="${request.application_url}/static/js/jquery-ui-1.8.8.custom.min.js"></script>
     <script src="${request.application_url}/static/js/ie-compat.js"></script>
     <script src="${request.application_url}/static/js/tagList.js"></script>
     <script src="${request.application_url}/static/js/OpenLayers.js"></script>
