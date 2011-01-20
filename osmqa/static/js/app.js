@@ -1,6 +1,6 @@
 var map, layer;
 var frequentTags = ['highway', 'cycleway', 'building'];
-var sharedTags;
+var sharedTags, unsharedTags;
 var currentMapTag = 'all';
 
 function onSelectionChange() {
@@ -35,6 +35,10 @@ function onSelectionChange() {
 }
 
 function createTagsList(tiles) {
+    // organize the tags list
+    getSharedTags();
+    sharedTags.sort();
+
     var h2 = $('<h2 />', {
         text: "Tags "
     });
@@ -56,48 +60,29 @@ function createTagsList(tiles) {
     $('#results')
         .append(h2);
 
+    // create the shared ul
     var sharedList = $('<ul />', {
-        "class": "tags"
-    });
-
-    getSharedTags();
-
-    if (layer.selectedTiles.length > 1 && sharedTags.length) {
-        $('#results')
-            .append('Shared tags:');
-    }
-    sharedTags.sort();
-    $.each(sharedTags, function(index, tag) {
-        var item = addTag(tag);
-        sharedList.append(item);
+        "class": "tags",
+        "html": "<h3>Shared tags</h3>"
     });
     $('#results').append(sharedList);
 
-    if (layer.selectedTiles.length > 1) {
-        if (layer.selectedTiles.length > 1 && sharedTags) {
-            var unsharedTags = [];
-            $.each(layer.selectedTiles, function(i, tile) {
-                $.each(tile.tags, function(j, tag) {
-                    if (sharedTags.indexOf(tag) == -1 &&
-                        unsharedTags.indexOf(tag) == -1) {
-                        unsharedTags.push(tag);
-                    }
-                });
-            });
-        }
-        if (unsharedTags.length) {
-            $('#results')
-                .append('Unshared tags:');
-            var unsharedList = $('<ul />', {
-                "class": "tags"
-            });
-            $.each(unsharedTags, function(j, tag) {
-                var item = addTag(tag);
-                unsharedList.append(item);
-            });
-            $('#results').append(unsharedList);
-        }
-    }
+    // TODO don't display the 'shared tags' label if there's no need
+
+    $.each(sharedTags, function(index, tag) {
+        addTag(tag);
+    });
+
+    // create the unshared ul
+    var unsharedList = $('<ul />', {
+        "class": "tags",
+        "html": "<h3>Unshared tags</h3>"
+    });
+    $('#results').append(unsharedList);
+
+    $.each(unsharedTags, function(j, tag) {
+        addTag(tag, unsharedList);
+    });
 }
 
 function getSharedTags() {
@@ -119,9 +104,29 @@ function getSharedTags() {
             }
         });
     }
+
+    unsharedTags = [];
+    if (layer.selectedTiles.length > 1 && sharedTags) {
+        $.each(layer.selectedTiles, function(i, tile) {
+            $.each(tile.tags, function(j, tag) {
+                if (sharedTags.indexOf(tag) == -1 &&
+                    unsharedTags.indexOf(tag) == -1) {
+                    unsharedTags.push(tag);
+                }
+            });
+        });
+    }
 }
 
-function addTag(tag) {
+/**
+ * Method: addTag
+ *
+ * Parameters:
+ * {String} tag to add
+ * {Element} list to add the tag to, if not precised, the tag will be added to
+ * the shared list
+ */
+function addTag(tag, list) {
     var tiles = layer.selectedTiles;
     var li = $("<li />", {
         "class": "tag",
@@ -155,8 +160,8 @@ function addTag(tag) {
             }
         }));
     }
-    return li;
-    //li.appendTo('#results ul.tags');
+    list = list || $('#results ul:first.tags');
+    li.appendTo(list);
 }
 
 function addTagAdder() {
@@ -182,8 +187,7 @@ function addTagAdder() {
             }
             var val = ui.item.value;
             layer.updateTile(tiles, val, false, function() {
-                var item = addTag(val);
-                item.appendTo('#results ul:first.tags');
+                addTag(val);
                 // FIXME the unshared tags may need to be updated
                 getSharedTags();
                 tagInput.autocomplete("option", "source", filter());
