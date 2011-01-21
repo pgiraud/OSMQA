@@ -21,11 +21,11 @@ def index(request):
             rows.append(row)
     return rows
 
-def _update_tile(x, y, tag, remove=False):
+def _update_tile(x, y, tag, user, remove=False):
     db = get_db()
     results = db.view(VIEW, key=[x,y])
     if len(results) == 0:
-        doc = couchdb.Document(type="tile", x=x, y=y, tags=[tag])
+        doc = couchdb.Document(type="tile", x=x, y=y, tags=[tag], user=user)
         r = db.update([doc])
         return {"success": True} # FIXME REST
     else:
@@ -34,6 +34,7 @@ def _update_tile(x, y, tag, remove=False):
             r['tags'].remove(tag)
         else:
             r['tags'].append(tag);
+        r.user = user
         db.update([r])
     return {"success": True} # FIXME REST
 
@@ -42,11 +43,13 @@ def add_tag(request):
     x = int(request.matchdict['x'])
     y = int(request.matchdict['y'])
     tag = request.matchdict['tag']
-    return _update_tile(x, y, tag)
+    user = request.session.get("user")
+    return _update_tile(x, y, tag, user)
 
 @view_config(route_name='rem_tag', renderer='json')
 def rem_tag(request):
     x = int(request.matchdict['x'])
     y = int(request.matchdict['y'])
     tag = request.matchdict['tag']
-    return _update_tile(x, y, tag, remove=True)
+    user = request.session.get("user")
+    return _update_tile(x, y, tag, user, remove=True)
