@@ -1,10 +1,6 @@
 import couchdb
-import datetime
-import logging
 
 from pyramid.view import view_config
-
-log = logging.getLogger(__name__)
 
 VIEW = '_design/tile/_view/by_xy'
 
@@ -28,12 +24,8 @@ def index(request):
 def _update_tile(x, y, tag, user, remove=False):
     db = get_db()
     results = db.view(VIEW, key=[x,y])
-    date = datetime.datetime.now().replace(microsecond=0).isoformat() + 'Z'
-    log.debug(date)
     if len(results) == 0:
-        # FIXME use a model
-        doc = couchdb.Document(type="tile", x=x, y=y, tags=[tag], user=user, 
-                date=date)
+        doc = couchdb.Document(type="tile", x=x, y=y, tags=[tag], user=user)
         r = db.update([doc])
         return {"success": True} # FIXME REST
     else:
@@ -42,8 +34,7 @@ def _update_tile(x, y, tag, user, remove=False):
             r['tags'].remove(tag)
         else:
             r['tags'].append(tag);
-        r['user'] = user
-        r['date'] = date
+        r.user = user
         db.update([r])
     return {"success": True} # FIXME REST
 
