@@ -58,6 +58,17 @@ small {
     font-size: 11px;
 }
 
+#feedback-button {
+    background: #404040;
+    border: 1px solid #777;
+    cursor: pointer;
+    display: block;
+    left: -1px;
+    padding: 5px 0;
+    position: fixed;
+    top: 200px;
+}
+
 /* Page */
 #global {
 	width: 100%; /* -> 3 */

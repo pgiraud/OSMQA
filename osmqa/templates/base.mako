@@ -6,6 +6,9 @@
     ${self.head()}
   </head>
   <%self:bodytag>
+    <div id="feedback-button">
+      <img src="${request.application_url}/static/img/feedback.png"></img>
+    </div>
     <div id="global">
       <div id="header">
         <h1>OSMQA</h1>
