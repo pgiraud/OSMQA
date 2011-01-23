@@ -25,7 +25,7 @@
 </%def>
 
 <%def name="bodytag()">
-  <body onload="init()">
+  <body onload="osmqa.init()">
     ${caller.body()}
   </body>
 </%def>
