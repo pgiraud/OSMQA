@@ -247,6 +247,12 @@ var osmqa = function() {
      * the shared list
      */
     function addTag(tag, list) {
+        // the user added a not previously defined tag,
+        // let's add it for future use
+        if (usualTags.indexOf(tag) == -1) {
+            usualTags.push(tag);
+            usualTags.sort();
+        }
         var tiles = layer.selectedTiles;
         var li = $("<li />", {
             "class": "tag",
