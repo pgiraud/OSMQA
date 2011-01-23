@@ -292,7 +292,8 @@ var osmqa = function() {
         var tiles = layer.selectedTiles;
         var tagInput = $('<input />')
             .appendTo('#results');
-        var filter = function() {
+
+        function filter() {
             var r = [];
             $.each(usualTags, function(index, tag) {
                 if (sharedTags.indexOf(tag) == -1) {
@@ -300,7 +301,14 @@ var osmqa = function() {
                 }
             });
             return r;
-        };
+        }
+
+        function showList() {
+            $(this).autocomplete('option', 'source', filter());
+            if (this.value === "") {
+                $(this).autocomplete('search', '');
+            }
+        }
 
         tagInput.autocomplete({
             source: filter(),
@@ -314,18 +322,15 @@ var osmqa = function() {
                     addTag(val);
                     // FIXME the unshared tags may need to be updated
                     getSharedTags();
-                    tagInput.autocomplete("option", "source", filter());
                 });
                 ui.item.value = '';
             },
             minLength: 0,
             delay: 0
-        }).focus(function(){
-            if (this.value === "") {
-                $(this).trigger('keydown.autocomplete');
-            }
-        });
-        //tagInput.autocomplete('search', '');
+        })
+            .focus(showList)
+            .click(showList);
+        tagInput.focus();
 
         // checks the keypress event for enter or comma, and adds a new tag
         // when either of those keys are pressed
@@ -337,7 +342,6 @@ var osmqa = function() {
                     layer.updateTile(tiles, val, false, function() {
                         addTag(val);
                         getSharedTags();
-                        tagInput.autocomplete("option", "source", filter());
                     });
                 } else {
                     $("li.tag span:econtains('" + val + "')").effect("highlight", {}, 3000);
