@@ -11,7 +11,6 @@
           type="text/css" />
     <script src="${request.application_url}/static/js/jquery-1.4.4.min.js"></script>
     <script src="${request.application_url}/static/js/jquery-ui-1.8.8.custom.min.js"></script>
-    <script src="${request.application_url}/static/js/ie-compat.js"></script>
     <script src="${request.application_url}/static/js/tagList.js"></script>
     <script src="${request.application_url}/static/js/OpenLayers.js"></script>
     <script src="${request.application_url}/static/js/Div.js"></script>
