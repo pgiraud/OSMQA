@@ -179,6 +179,7 @@ var osmqa = function() {
 
         // create the shared ul
         var sharedList = $('<ul />', {
+            "id": "sharedTags",
             "class": "tags",
             "html": "<h3>Shared tags</h3>"
         });
@@ -192,6 +193,7 @@ var osmqa = function() {
 
         // create the unshared ul
         var unsharedList = $('<ul />', {
+            "id": "unsharedTags",
             "class": "tags",
             "html": "<h3>Unshared tags</h3>"
         });
@@ -280,7 +282,15 @@ var osmqa = function() {
                 }
             }));
         }
-        list = list || $('#results ul:first.tags');
+
+        if (unsharedTags.indexOf(tag) != -1 &&
+            !list) {
+            $("li.tag span:econtains('" + tag + "')").fadeOut(300, function() {
+                $(this).parent("li").remove();
+            });
+        }
+
+        list = list || $('#results ul#sharedTags.tags');
         li.appendTo(list);
     }
 
