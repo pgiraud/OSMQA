@@ -64,10 +64,6 @@ OpenLayers.Tile.Div = OpenLayers.Class(OpenLayers.Tile, {
         back.className = 'back';
         this.div.appendChild(back);
 
-        var front = document.createElement('div');
-        front.className = 'front';
-        this.div.appendChild(front);
-        
         this.location = options.location;
 
         this.tags = [];
