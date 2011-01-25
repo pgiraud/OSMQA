@@ -223,7 +223,7 @@ OpenLayers.Layer.Static = OpenLayers.Class(OpenLayers.Layer.Grid, {
                             //full = (this.tag == 'all' ||
                                 //tile.value.tags.indexOf(this.tag) != -1) ?
                                     //true : false;
-                        cell.setTags(tile.value.tags);
+                        cell.setAttributes(tile.value);
                         if (tile.value.tags.indexOf(this.tag) != -1) {
                             cell.markAsValid();
                         }

@@ -31,6 +31,12 @@ OpenLayers.Tile.Div = OpenLayers.Class(OpenLayers.Tile, {
     location: null,
 
     /**
+     * APIProperty: attribute
+     * {Object} The additionnal attributes
+     */
+    attributes: null,
+
+    /**
      * APIProperty: tags
      * {Array} The list of tags that this tile is validated for
      */
@@ -67,6 +73,7 @@ OpenLayers.Tile.Div = OpenLayers.Class(OpenLayers.Tile, {
         this.location = options.location;
 
         this.tags = [];
+        this.attributes = {};
 
         this.events = new OpenLayers.Events(this, null, this.EVENT_TYPES);
     },
@@ -191,11 +198,12 @@ OpenLayers.Tile.Div = OpenLayers.Class(OpenLayers.Tile, {
     },
 
     /**
-     * APIMethod: setTags
-     * Set the tags property and changes the className of the div
+     * APIMethod: setAttributes
+     * Set the tags and attributes properties and changes the className of the div
      */
-    setTags: function(tags) {
-        this.tags = tags;
+    setAttributes: function(attributes) {
+        this.tags = attributes.tags;
+        this.attributes = attributes;
         OpenLayers.Element.addClass(this.div, 'hasTags');
     },
 
