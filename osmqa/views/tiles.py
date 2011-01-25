@@ -62,3 +62,12 @@ def rem_tag(request):
     tag = request.matchdict['tag']
     user = request.session.get("user")
     return _update_tile(x, y, tag, user, remove=True)
+
+@view_config(route_name='tile', renderer='json')
+def detail(request):
+    db = get_db()
+    revisions = [] 
+    id = request.matchdict['id']
+    for i in db.revisions(id):
+        revisions.append(i)
+    return revisions 

@@ -17,6 +17,7 @@ def main(global_config, **settings):
     config.add_route('logout', '/logout')
 
     config.add_route('tiles', '/tiles')
+    config.add_route('tile', '/tile/{id}')
     config.add_route('add_tag', '/tiles/{x},{y}/tags/{tag}', request_method='PUT')
     config.add_route('rem_tag', '/tiles/{x},{y}/tags/{tag}', request_method='DELETE')
 
