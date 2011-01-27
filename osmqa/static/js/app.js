@@ -59,7 +59,7 @@ var osmqa = function() {
                 map.getProjectionObject()
             ), 12
         );    
-    }
+    };
 
     /**
      * Method: manageMapTag
@@ -117,8 +117,83 @@ var osmqa = function() {
                     .trigger('keydown.autocomplete')
                     .focus();
             });
-    }
+    };
 
+    var roundd = function(input, decimals) {
+        var p = Math.pow(10, decimals);
+        return Math.round(input*p)/p;
+    };
+
+    var getLink = function(options) {
+        if (options.protocol === 'lbrt') {
+            var bounds = options.bounds;
+            return options.base + OpenLayers.Util.getParameterString({
+                left: roundd(bounds.left,5),
+                bottom: roundd(bounds.bottom,5),
+                right: roundd(bounds.right,5),
+                top: roundd(bounds.top,5)
+            });
+        } else if (options.protocol === 'llz') {
+            var c = options.bounds.getCenterLonLat();
+            return options.base + OpenLayers.Util.getParameterString({
+                lon: roundd(c.lon,5),
+                lat: roundd(c.lat,5),
+                zoom: options.zoom || 15
+            });
+        }
+    };
+
+    var exportOpen = function() {  
+        var tiles = layer.selectedTiles;
+        var url, bounds = new OpenLayers.Bounds();
+        for (var i=0,l=tiles.length; i<l; i++) {
+            bounds.extend(tiles[i].bounds);
+        }
+        bounds.transform(
+            new OpenLayers.Projection("EPSG:900913"), 
+            new OpenLayers.Projection("EPSG:4326")
+        );
+        
+        switch (this.id) {
+        case "josm":
+            url = getLink({
+                base: 'http://127.0.0.1:8111/load_and_zoom?',
+                bounds: bounds,
+                protocol: 'lbrt'
+            });
+            window.open(url).close();
+            break;
+        case "potlatch":
+            url = getLink({
+                base: 'http://www.openstreetmap.org/edit?editor=potlatch&',
+                bounds: bounds,
+                zoom: 16,
+                protocol: 'llz'
+            });
+            window.open(url);
+            break;
+        case "potlatch2":
+            url = getLink({
+                base: 'http://www.openstreetmap.org/edit?editor=potlatch2&',
+                bounds: bounds,
+                zoom: 16,
+                protocol: 'llz'
+            });
+            window.open(url);
+            break;
+        case "wp":
+            url = getLink({
+                base: 'http://walking-papers.org/?',
+                bounds: bounds,            
+                protocol: 'llz'
+            });
+            window.open(url);
+            break;
+        default:
+            break;
+        }
+    };
+    
     /**
      * Method: onSelectionChange
      * Called when user selects tiles on the map
@@ -151,8 +226,18 @@ var osmqa = function() {
             'class': 'important',
             text: text
         }).appendTo('#results');
+        
+        $('<p>', {
+            'class': 'export',
+            'html': ['Open with <a href="#" id="josm">JOSM<a>', 
+                '<a href="#" id="potlatch">Potlatch<a>', 
+                '<a href="#" id="potlatch2">Potlatch 2<a>', 
+                '<a href="#" id="wp">Walking Papers<a>'].join(', ')
+        }).appendTo('#results');
+        $('#results p.export a').click(exportOpen);
+
         createTagsList();
-    }
+    };
 
     function createTagsList(tiles) {
         // organize the tags list
@@ -205,7 +290,8 @@ var osmqa = function() {
         $.each(unsharedTags, function(j, tag) {
             addTag(tag, unsharedList);
         });
-    }
+    };
+    
     /**
      * Method: getSharedTags
      * Update the sharedTags and unsharedTags properties
@@ -241,7 +327,7 @@ var osmqa = function() {
                 });
             });
         }
-    }
+    };
 
     /**
      * Method: addTag
@@ -295,7 +381,7 @@ var osmqa = function() {
 
         list = list || $('#results ul#sharedTags.tags');
         li.appendTo(list);
-    }
+    };
 
     /**
      * Method: addTagAdder
@@ -369,7 +455,7 @@ var osmqa = function() {
                 $(this).val("");
             }
         });
-    }
+    };
 
     /**
      * Method: changeMapTag
@@ -379,7 +465,7 @@ var osmqa = function() {
         currentMapTag = tag;
         layer.changeTag(tag);
         $('#currentMapTag').html(tag);
-    }
+    };
 
     return {
         init: function() {
