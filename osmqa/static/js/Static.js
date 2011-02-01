@@ -212,9 +212,6 @@ OpenLayers.Layer.Static = OpenLayers.Class(OpenLayers.Layer.Grid, {
                 row,
                 col,
                 complete;
-            if (tile.value.tags.length == 0) {
-                continue;
-            }
             for (row = 0; row < this.grid.length; row++) {
                 for (col = 0; col < this.grid[row].length; col++) {
                     cell = this.grid[row][col];

@@ -204,7 +204,9 @@ OpenLayers.Tile.Div = OpenLayers.Class(OpenLayers.Tile, {
     setAttributes: function(attributes) {
         this.tags = attributes.tags;
         this.attributes = attributes;
-        OpenLayers.Element.addClass(this.div, 'hasTags');
+        if (this.tags.length) {
+            OpenLayers.Element.addClass(this.div, 'hasTags');
+        }
     },
 
     /**
