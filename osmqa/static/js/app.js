@@ -215,10 +215,12 @@ var osmqa = function() {
         if (layer.selectedTiles.length == 1) {
             var tile = layer.selectedTiles[0];
             text = tile.location[0] + ' ' + tile.location[1];
-            text += ' Last modified : ';
-            var date = new Date();
-            date.setTime(Date.parse(tile.attributes.date));
-            text += date.toLocaleDateString();
+            if (tile.attributes.date) {
+                text += ' Last modified : ';
+                var date = new Date();
+                date.setTime(Date.parse(tile.attributes.date));
+                text += date.toLocaleDateString();
+            }
         } else if (layer.selectedTiles.length > 1) {
             text = layer.selectedTiles.length;
         }
@@ -237,7 +239,7 @@ var osmqa = function() {
         $('#results p.export a').click(exportOpen);
 
         createTagsList();
-    };
+    }
 
     function createTagsList(tiles) {
         // organize the tags list
