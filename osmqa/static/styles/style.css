@@ -59,6 +59,22 @@ small {
     font-size: 11px;
 }
 
+#auth {
+    -moz-border-radius: 0 0 3px 3px;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    font: 13px/16px 'Helvetica Neue','Arial','Helvetica',serif;
+    height: 29px;
+    right: 50px;
+    padding: 12px 17px 0;
+    position: fixed;
+    text-align: left;
+    top: 0;
+}
+#auth a {
+    color: white;
+}
+
 #feedback-button {
     background: #404040;
     border: 1px solid #777;

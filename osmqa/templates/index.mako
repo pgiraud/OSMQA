@@ -26,16 +26,18 @@
 
 <%def name="bodytag()">
   <body onload="osmqa.init()">
+    <div id="auth">
+      % if user is None:
+            <a href="${request.route_url('login')}">login</a> (via OpenStreetMap oauth)
+      % else:
+            Hello ${user}! <a href="${request.route_url('logout')}">logout</a>
+      % endif
+    </div>
     ${caller.body()}
   </body>
 </%def>
 
 <%def name="right()">
-  % if user is None:
-        <a href="${request.route_url('login')}">login</a> (via OpenStreetMap oauth)
-  % else:
-        Hello ${user}! <a href="${request.route_url('logout')}">logout</a>
-  % endif
         <div id="tileconfig">
           <div id="tileconfighelp">
              <p>Click on a tile in the map to select it and see its properties</p>
