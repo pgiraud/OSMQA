@@ -46,6 +46,23 @@ To run OSMQA the easiest is to use ``paster serve``::
 
     $ env/bin/paster serve development.ini
 
+You can also run it under mod_wsgi in apache. To do that, modify the osmqa.wsgi
+file to match the path where you installed OSMQA. Then modify and add the following
+to your apache configuration ::
+
+    WSGIPassAuthorization On
+    WSGIDaemonProcess pyramid user=www-data group=www-data processes=1 \
+       threads=4 \
+       python-path=/path/to/OSMQA/env/lib/python2.6/site-packages
+    WSGIScriptAlias /osmqa /path/to/OSMQA/osmqa.wsgi
+
+    <Directory /path/to/OSMQA>
+      WSGIProcessGroup pyramid
+      Order allow,deny
+      Allow from all
+    </Directory>
+
+
 Want to help?
 -------------
 
