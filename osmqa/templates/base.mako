@@ -17,6 +17,10 @@
         ${self.right()}
       </div>
       <div id="content">
+        <div class="ui-widget">
+          <label for="citysearch">Search for a location: </label>
+          <input type="text" id="citysearch" />
+        </div>
         <div id="map"></div>
         ${self.content()}
       </div>

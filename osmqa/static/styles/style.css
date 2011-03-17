@@ -112,6 +112,7 @@ small {
 #content {
 	margin-right: 30%; /* -> 6 */
 	padding: 10px 20px;
+    position: relative;
 }
 #content > :first-child {
 	margin-top: 10px;
@@ -122,6 +123,8 @@ small {
 
 #map {
     height: 512px;
+    position: relative;
+    z-index: 0;
 }
 .important {
     font-weight: bold;
@@ -154,4 +157,8 @@ small {
 }
 .selected {
     border: 1px dashed #555;
+}
+
+.ui-menu {
+    z-index: 1000;
 }
