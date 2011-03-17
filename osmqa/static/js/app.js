@@ -59,6 +59,7 @@ var osmqa = function() {
                 map.getProjectionObject()
             ), 12
         );    
+        map.addControl(new OpenLayers.Control.Permalink({anchor: true}));
     };
 
     /**
