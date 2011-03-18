@@ -17,8 +17,8 @@
         ${self.right()}
       </div>
       <div id="content">
-        <div id="map"></div>
         ${self.content()}
+        <div id="map"></div>
       </div>
     </div>
   </%self:bodytag>

@@ -1,6 +1,6 @@
 <%inherit file="/base.mako"/>
 
-<%def name="title()">Main</%def>
+<%def name="title()">OSM Quality Assurance application on QualityStreetMap.org</%def>
 
 <%def name="head()">
     <link rel="stylesheet"
@@ -28,7 +28,7 @@
   <body onload="osmqa.init()">
     <div id="auth">
       % if user is None:
-            <a href="${request.route_url('login')}">login</a> (via OpenStreetMap oauth)
+            <a href="${request.route_url('login')}">login</a> (with your OpenStreetMap credentials)
       % else:
             Hello ${user}! <a href="${request.route_url('logout')}">logout</a>
       % endif
@@ -38,6 +38,9 @@
 </%def>
 
 <%def name="right()">
+        <div id="maplegend">
+          <div class="label">Green tiles are considered valid regarding <span id="currentMapTag">at least one tag</span> (click to change)</div>
+        </div>
         <div id="tileconfig">
           <div id="tileconfighelp">
              <p>Click on a tile in the map to select it and see its properties</p>
@@ -49,7 +52,7 @@
 </%def>
 
 <%def name="content()">
-        <div id="maplegend">
-          <div class="label">Tiles validated for <span id="currentMapTag">any tag</span></div>
-        </div>
+       <!-- <div id="maplegend">
+          <div class="label">Green tiles are considered valid regarding <span id="currentMapTag">at least one tag</span> (click to change)</div>
+        </div>-->
 </%def>

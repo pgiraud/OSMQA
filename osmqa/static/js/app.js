@@ -39,7 +39,9 @@ var osmqa = function() {
      * Method: createMap
      */
     function createMap() {
-        map = new OpenLayers.Map('map');
+        map = new OpenLayers.Map('map', {
+            displayProjection: new OpenLayers.Projection('EPSG:4326')
+        });
         var osm = new OpenLayers.Layer.OSM('Simple OSM Map');
         osm.setOpacity(0.7);
         map.addLayer(osm);
@@ -53,12 +55,10 @@ var osmqa = function() {
         });
         map.addLayer(layer);
 
-        map.setCenter(
-            new OpenLayers.LonLat(5.9, 45.6).transform(
-                new OpenLayers.Projection('EPSG:4326'),
-                map.getProjectionObject()
-            ), 12
-        );    
+        map.addControl(new OpenLayers.Control.Permalink());
+        if (!map.getCenter()) {
+            map.zoomToMaxExtent();
+        }
     };
 
     /**
@@ -78,7 +78,7 @@ var osmqa = function() {
                 edit.val(element.text());
                 element.after(edit);
                 var updateMapTagAdder = function() {
-                    var value = edit.val() || 'any tag';
+                    var value = edit.val() || 'at least one tag';
                     edit.hide();
                     element.show();
                     changeMapTag(value);
@@ -105,6 +105,7 @@ var osmqa = function() {
                         },
                         minLength: 0,
                         delay: 0
+                        // TODO: here: specify combo width
                     })
                     .blur(function(e) {
                         // add a delay to let the select happend

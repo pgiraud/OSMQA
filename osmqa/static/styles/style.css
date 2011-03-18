@@ -67,7 +67,7 @@ small {
     color: white;
     font: 13px/16px 'Helvetica Neue','Arial','Helvetica',serif;
     height: 29px;
-    right: 50px;
+    right: 200px;
     padding: 12px 17px 0;
     position: fixed;
     text-align: left;
@@ -96,7 +96,7 @@ small {
 
 /* En-tête */
 #header {
-	padding: 10px;
+	padding: 10px 100px 10px 10px;
 }
 #header h1 {
 	margin: 0;
@@ -104,6 +104,7 @@ small {
 
 /* Right column */
 #right {
+	margin-top: 50px;
 	width: 28%; /* -> 4 */
 	float: right;
 }
@@ -113,9 +114,7 @@ small {
 	margin-right: 30%; /* -> 6 */
 	padding: 10px 20px;
 }
-#content > :first-child {
-	margin-top: 10px;
-}
+
 #content p, #content li {
 	line-height: 1.5;
 }
@@ -154,4 +153,32 @@ small {
 }
 .selected {
     border: 1px dashed #555;
+}
+
+.olControlAttribution {
+    font-size: smaller; 
+    right: 5px; 
+    bottom: 5px; 
+    position: absolute; 
+    display: block;
+}
+.olControlPermalink {
+    right: 5px;
+    bottom: 25px;
+    display: block;
+    position: absolute;
+    font-size: smaller;
+} 
+
+.olHandlerBoxZoomBox {
+    border: 2px solid red;
+    position: absolute;
+    background-color: white;
+    opacity: 0.50;
+    font-size: 1px;
+    filter: alpha(opacity=50);
+}
+
+#right > :first-child {
+	margin-bottom: 10px;
 }
