@@ -30,7 +30,7 @@
       % if user is None:
             <a href="${request.route_url('login')}">login</a> (with your OpenStreetMap credentials)
       % else:
-            Hello ${user}! <a href="${request.route_url('logout')}">logout</a>
+            Hello ${user} ! <a href="${request.route_url('logout')}">logout</a>
       % endif
     </div>
     ${caller.body()}
@@ -39,7 +39,7 @@
 
 <%def name="right()">
         <div id="maplegend">
-          <div class="label">Green tiles are considered valid regarding <span id="currentMapTag">at least one tag</span> (click to change)</div>
+          <div class="label">Coloured tiles are considered valid regarding <span id="currentMapTag">at least one tag</span> (click to change)</div>
         </div>
         <div id="tileconfig">
           <div id="tileconfighelp">
@@ -49,10 +49,4 @@
           <div id="results"></div>
         </div>
         <div style="clear:both"></div>
-</%def>
-
-<%def name="content()">
-       <!-- <div id="maplegend">
-          <div class="label">Green tiles are considered valid regarding <span id="currentMapTag">at least one tag</span> (click to change)</div>
-        </div>-->
 </%def>

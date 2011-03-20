@@ -55,10 +55,17 @@ var osmqa = function() {
         });
         map.addLayer(layer);
 
-        map.addControl(new OpenLayers.Control.Permalink());
         if (!map.getCenter()) {
             map.zoomToMaxExtent();
         }
+/*
+        map.setCenter(
+            new OpenLayers.LonLat(5.9, 45.6).transform(
+                new OpenLayers.Projection('EPSG:4326'),
+                map.getProjectionObject()
+            ), 12
+        ); */   
+        map.addControl(new OpenLayers.Control.Permalink({anchor: true}));
     };
 
     /**
@@ -470,10 +477,50 @@ var osmqa = function() {
         $('#currentMapTag').html(tag);
     };
 
+    function initGeoNamesSearch() {
+        $( "#citysearch" ).autocomplete({
+            source: function( request, response ) {
+                $.ajax({
+                    url: "http://ws.geonames.org/searchJSON",
+                    dataType: "jsonp",
+                    data: {
+                        featureClass: "P",
+                        style: "full",
+                        maxRows: 12,
+                        name_startsWith: request.term
+                    },
+                    success: function( data ) {
+                        response( $.map( data.geonames, function( item ) {
+                            return {
+                                label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
+                                value: item.name,
+                                lonlat: new OpenLayers.LonLat(item.lng, item.lat)
+                            }
+                        }));
+                    }
+                });
+            },
+            minLength: 2,
+            select: function( event, ui ) {
+                map.setCenter(ui.item.lonlat.transform(
+                    new OpenLayers.Projection('EPSG:4326'),
+                    map.getProjectionObject()
+                ), 13);
+            },
+            open: function() {
+                $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+            },
+            close: function() {
+                $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+            }
+        });
+    }
+
     return {
         init: function() {
             createMap();
             manageMapTag();
+            initGeoNamesSearch();
 
             if (window.user) {
                 $('#results').addClass('isLogged');
