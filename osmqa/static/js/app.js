@@ -59,14 +59,6 @@ var osmqa = function() {
         if (!map.getCenter()) {
             map.zoomToMaxExtent();
         }
-/*
-        map.setCenter(
-            new OpenLayers.LonLat(5.9, 45.6).transform(
-                new OpenLayers.Projection('EPSG:4326'),
-                map.getProjectionObject()
-            ), 12
-        ); */   
-        map.addControl(new OpenLayers.Control.Permalink({anchor: true}));
     };
 
     /**
