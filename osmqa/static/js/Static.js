@@ -35,7 +35,7 @@ OpenLayers.Layer.Static = OpenLayers.Class(OpenLayers.Layer.Grid, {
      * APIProperty: tag
      * The tag to display green tiles for
      */
-    tag: 'all',
+    tag: 'highway',
 
     /**
      * APIProperty: tiles_url

@@ -4,7 +4,7 @@
  * http://blueprintcss.googlecode.com
  */
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
-body {line-height:1.5;}
+
 table {border-collapse:separate;border-spacing:0;}
 caption, th, td {text-align:left;font-weight:normal;}
 table, td, th {vertical-align:middle;}
@@ -15,12 +15,25 @@ a img {border:none;}
 /**
  * Basic Typography
  */
+ 
+html {
+margin: 0;
+padding: 0;
+height: 100%;
+}
+
 body {
+
+margin: 0;
+padding: 0;
+height: 100%;
+	line-height:1.5;
     font-family: "Lucida Grande", Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
     font-size: 80%;
     color: #222;
     background: #fff;
-    margin: 1em 1.5em;
+    margin: 0px 1.5em;
+	/*margin-bottom: 0px; margin-top: 0px;*/
     background: url(../img/ribbon.png) top right no-repeat;
 }
 a[href], small a {
@@ -91,15 +104,13 @@ small {
 /* Page */
 #global {
 	width: 100%; /* -> 3 */
+	height: 100%;
 	overflow: hidden; /* -> 3 */
 }
 
 /* En-tête */
 #header {
-	padding: 10px 100px 10px 10px;
-}
-#header h1 {
-	margin: 0;
+	padding: 15px 100px 10px 20px;
 }
 
 /* Right column */
@@ -112,8 +123,11 @@ small {
 /* Content */
 #content {
 	margin-right: 30%; /* -> 6 */
-	padding: 10px 20px;
+	margin-top: 10px;
+	padding: 0px 20px;
     position: relative;
+	height:100%;
+	z-index: 0;
 }
 
 #content p, #content li {
@@ -121,9 +135,13 @@ small {
 }
 
 #map {
-    height: 512px;
-    position: relative;
+    /*height: 512px;
+    position: absolute;*/
+	height: 85%;
+	width:100%;
     z-index: 0;
+	border: 2px solid black;
+	bottom: 0px; top: 0px;
 }
 .important {
     font-weight: bold;
@@ -132,7 +150,7 @@ small {
     display: none;
 }
 .olTile {
-    margin: 4px;
+    /*margin: 4px;*/
     border: 1px solid transparent;
 }
 .olTile div {
@@ -183,8 +201,14 @@ small {
 }
 
 #right > :first-child {
-	margin-bottom: 10px;
+	margin-bottom: 20px;
 }
 .ui-menu {
     z-index: 1000;
+}
+
+#location {
+	position: absolute;
+	top: 26px;
+	left: 600px;
 }
