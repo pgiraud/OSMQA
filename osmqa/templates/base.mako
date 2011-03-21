@@ -8,7 +8,7 @@
   </head>
   <%self:bodytag>
     <div id="feedback-button">
-      <a href="https://github.com/elemoine/OSMQA/issues" target="_blank"><img src="${request.application_url}/static/img/feedback.png"></img></a>
+      <a href="https://github.com/elemoine/OSMQA/issues" target="_blank"><img src="${request.application_url}/static/img/feedback.png" /></a>
     </div>
     <div id="global">
       <div id="header">
