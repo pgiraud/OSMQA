@@ -80,8 +80,8 @@ small {
     color: white;
     font: 13px/16px 'Helvetica Neue','Arial','Helvetica',serif;
     height: 29px;
-    right: 200px;
-    padding: 12px 17px 0;
+    right: 170px;
+    padding: 5px 15px 0;
     position: fixed;
     text-align: left;
     top: 0;
@@ -209,6 +209,6 @@ small {
 
 #location {
 	position: absolute;
-	top: 26px;
-	left: 600px;
+	top: 34px;
+	left: 556px;
 }
