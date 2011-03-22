@@ -15,6 +15,8 @@ To install CouchDB the easiest is to rely on your operating system's package
 management tool. Installing from source is also an option
 (http://couchdb.apache.org/downloads.html).
 
+A recent version (> 0.11) may be required.
+
 Create Database
 ---------------
 
