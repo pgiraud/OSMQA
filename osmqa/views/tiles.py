@@ -28,7 +28,7 @@ def index(request):
 def _update_tile(x, y, tag, user, remove=False):
     db = get_db()
     results = db.view(VIEW, key=[x,y])
-    date = datetime.datetime.now().replace(microsecond=0).isoformat() + 'Z'
+    date = datetime.datetime.utcnow().replace(microsecond=0).isoformat() + 'Z'
     log.debug(date)
     if len(results) == 0:
         # FIXME use a model
