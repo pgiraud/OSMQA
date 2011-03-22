@@ -12,6 +12,7 @@ def main(global_config, **settings):
     config.add_static_view('static', 'osmqa:static/')
 
     config.add_route('index', '/')
+    config.add_route('stats', '/stats')
     config.add_route('login', '/login')
     config.add_route('oauth_callback', '/oauth_callback')
     config.add_route('logout', '/logout')
@@ -20,6 +21,7 @@ def main(global_config, **settings):
     config.add_route('tile', '/tile/{id}')
     config.add_route('add_tag', '/tiles/{x},{y}/tags/{tag}', request_method='PUT')
     config.add_route('rem_tag', '/tiles/{x},{y}/tags/{tag}', request_method='DELETE')
+    config.add_route('socket_io', 'socket.io/*remaining')
 
     config.scan()
 
