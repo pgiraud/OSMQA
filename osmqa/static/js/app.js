@@ -218,10 +218,8 @@ var osmqa = function() {
             text = 'One tile selected (X,Y) = (' + tile.location[0] + ',' + tile.location[1]+')';
             text += '<br />Hint: select multiple tiles with CTRL + click';
             if (tile.attributes.date) {
-                text += '<br />Last modified : ';
-                var date = new Date();
-                date.setTime(Date.parse(tile.attributes.date));
-                text += date.toLocaleDateString();
+                text += '<br />Last modified : ' +
+                        jQuery.timeago(tile.attributes.date);
             }
         } else if (layer.selectedTiles.length > 1) {
             text = layer.selectedTiles.length + ' tiles selected for batch editing';
