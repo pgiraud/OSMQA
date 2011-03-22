@@ -33,13 +33,15 @@ var osmqa = function() {
      * Property: currentMapTag
      * The currently chosen tag for map display.
      */
-    var currentMapTag = 'all';
+    var currentMapTag = 'highway';
 
     /**
      * Method: createMap
      */
     function createMap() {
-        map = new OpenLayers.Map('map');
+        map = new OpenLayers.Map('map', {
+            displayProjection: new OpenLayers.Projection('EPSG:4326')
+        });
         var osm = new OpenLayers.Layer.OSM('Simple OSM Map');
         osm.setOpacity(0.7);
         map.addLayer(osm);
@@ -53,13 +55,10 @@ var osmqa = function() {
         });
         map.addLayer(layer);
 
-        map.setCenter(
-            new OpenLayers.LonLat(5.9, 45.6).transform(
-                new OpenLayers.Projection('EPSG:4326'),
-                map.getProjectionObject()
-            ), 12
-        );    
         map.addControl(new OpenLayers.Control.Permalink({anchor: true}));
+        if (!map.getCenter()) {
+            map.zoomToMaxExtent();
+        }
     };
 
     /**
@@ -79,7 +78,7 @@ var osmqa = function() {
                 edit.val(element.text());
                 element.after(edit);
                 var updateMapTagAdder = function() {
-                    var value = edit.val() || 'any tag';
+                    var value = edit.val() || 'highway';
                     edit.hide();
                     element.show();
                     changeMapTag(value);
@@ -106,6 +105,7 @@ var osmqa = function() {
                         },
                         minLength: 0,
                         delay: 0
+                        // TODO: here: specify combo width
                     })
                     .blur(function(e) {
                         // add a delay to let the select happend
@@ -206,8 +206,8 @@ var osmqa = function() {
             $('#tileconfighelp').show();
             return;
         }
-
         $('#tileconfighelp').hide();
+        
         $('#results')
             .append($('<h2 />', {
                 text: "Selected area"
@@ -215,19 +215,20 @@ var osmqa = function() {
         var text;
         if (layer.selectedTiles.length == 1) {
             var tile = layer.selectedTiles[0];
-            text = tile.location[0] + ' ' + tile.location[1];
+            text = 'One tile selected (X,Y) = (' + tile.location[0] + ',' + tile.location[1]+')';
+            text += '<br />Hint: select multiple tiles with CTRL + click';
             if (tile.attributes.date) {
-                text += ' Last modified : ';
+                text += '<br />Last modified : ';
                 var date = new Date();
                 date.setTime(Date.parse(tile.attributes.date));
                 text += date.toLocaleDateString();
             }
         } else if (layer.selectedTiles.length > 1) {
-            text = layer.selectedTiles.length;
+            text = layer.selectedTiles.length + ' tiles selected for batch editing';
         }
         $('<p>', {
-            'class': 'important',
-            text: text
+            //'class': 'important',
+            html: text
         }).appendTo('#results');
         
         $('<p>', {

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>${self.title()}</title>
@@ -7,22 +8,21 @@
   </head>
   <%self:bodytag>
     <div id="feedback-button">
-      <img src="${request.application_url}/static/img/feedback.png"></img>
+      <a href="https://github.com/elemoine/OSMQA/issues" target="_blank"><img src="${request.application_url}/static/img/feedback.png" /></a>
     </div>
     <div id="global">
       <div id="header">
-        <h1>OSMQA</h1>
+        <img src="${request.application_url}/static/img/title.png" alt="OSM Quality Assurance"/>
+        <div class="ui-widget" id="location">
+          <label for="citysearch">Search for a location: </label>
+          <input type="text" id="citysearch" />
+        </div>
       </div>
       <div id="right">
         ${self.right()}
       </div>
       <div id="content">
-        <div class="ui-widget">
-          <label for="citysearch">Search for a location: </label>
-          <input type="text" id="citysearch" />
-        </div>
         <div id="map"></div>
-        ${self.content()}
       </div>
     </div>
   </%self:bodytag>
