@@ -13,10 +13,10 @@ class ConnectIOContext(SocketIOContext):
         def getchanges():
             server = Server()
             db = server['tiles']
-            changes = db.changes(include_docs='true')
+            changes = db.changes(include_docs='true', descending='true', limit=6)
             # last - 5 revision
             r = changes['results']
-            rev = r[len(r) - 5]['seq']
+            rev = r[len(r) - 1]['seq']
             print(rev)
             changes = db.changes(feed='continuous', heartbeat=60000, include_docs='true', since=rev)
 
