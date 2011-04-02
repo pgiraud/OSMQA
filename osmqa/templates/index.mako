@@ -26,7 +26,7 @@
 </%def>
 
 <%def name="bodytag()">
-  <body onload="osmqa.init()">
+  <body onload="osmqa.init()" onunload="osmqa.setCookie();">
     <div id="auth">
       % if user is None:
             <a href="${request.route_url('login')}">login</a> (with your OpenStreetMap credentials)

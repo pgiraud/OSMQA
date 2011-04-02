@@ -36,6 +36,11 @@ var osmqa = function() {
     var currentMapTag = 'highway';
 
     /**
+     * Property: cookieName
+     */
+    var cookieName = '_map_location';
+
+    /**
      * Method: createMap
      */
     function createMap() {
@@ -57,9 +62,35 @@ var osmqa = function() {
 
         map.addControl(new OpenLayers.Control.Permalink({anchor: true}));
         if (!map.getCenter()) {
+            readCookie();
+        }
+        if (!map.getCenter()) {
             map.zoomToMaxExtent();
         }
     };
+
+    /**
+     * Method: readCookie
+     * Searches for and read a '_map_location' cookie.
+     */
+    function readCookie() {
+        if (document.cookie.length > 0) {
+            var cookieStart = document.cookie.indexOf(cookieName + "=");
+            if (cookieStart != -1) {
+                cookieStart += cookieName.length+1; 
+                var cookieEnd = document.cookie.indexOf(";",cookieStart);
+                cookieEnd = (cookieEnd != -1) ? 
+                    cookieEnd : document.cookie.length;
+                var cookie = document.cookie.substring(cookieStart,cookieEnd);
+                // == split the cookie text and create the variables ==
+                var bits = cookie.split("|");
+                var lon = parseFloat(bits[0]);
+                var lat = parseFloat(bits[1]);
+                var zoom = parseInt(bits[2], 0);
+                map.setCenter(new OpenLayers.LonLat(lon, lat), zoom);
+            } 
+        }
+    }
 
     /**
      * Method: manageMapTag
@@ -508,6 +539,14 @@ var osmqa = function() {
         });
     }
 
+    function setCookie() {
+        var lonlat = map.getCenter();
+        var zoom = map.getZoom();
+        var expiry = new Date();
+        expiry.setYear(expiry.getFullYear() + 10);
+        document.cookie = cookieName + '=' + lonlat.lon + "|" + lonlat.lat + "|" + zoom + "; expires=" + expiry.toGMTString();
+    }
+
     return {
         init: function() {
             createMap();
@@ -517,7 +556,9 @@ var osmqa = function() {
             if (window.user) {
                 $('#results').addClass('isLogged');
             }
-        }
+        },
+
+        setCookie: setCookie
     };
 }();
 
