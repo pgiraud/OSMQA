@@ -92,7 +92,3 @@ def logout(request):
     session.clear()
     session.save()
     return HTTPFound(location=request.route_url('index'))
-
-@view_config(route_name='stats', renderer='stats.mako')
-def stats(request):
-    return {}
