@@ -193,7 +193,8 @@ var osmqa = function() {
                 bounds: bounds,
                 protocol: 'lbrt'
             });
-            window.open(url).close();
+            var w = window.open(url);
+            window.setTimeout(function(){w.close();}, 500);
             break;
         case "potlatch":
             url = getLink({
